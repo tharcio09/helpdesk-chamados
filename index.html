@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Help Desk</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>Sistema de Help Desk</header>
+
+    <main>
+        <section class="form-section">
+            <h2>Abrir Chamado</h2>
+            <form id="chamadoForm">
+                <input type="text" id="titulo" placeholder="Título do chamado" required>
+                <textarea id="descricao" placeholder="Descrição do problema" required></textarea>
+                <select id="prioridade">
+                    <option value="Alta">Alta</option>
+                    <option value="Média">Média</option>
+                    <option value="Baixa">Baixa</option>
+                </select>
+                <button type="submit">Registrar</button>
+            </form>
+        </section>
+        
+        <section class="list-section">
+            <h2>Chamados Registrados</h2>
+            <ul id="listaChamados"></ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
