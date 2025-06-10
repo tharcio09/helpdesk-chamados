@@ -50,7 +50,19 @@ function exibirChamados() {
         });
 }
 
+function atualizarDashboard() {
+    let abertos = 0, andamento = 0, resolvidos = 0;
 
+    chamados.forEach(chamado => {
+        if (chamado.status === "Aberto") abertos++;
+        else if (chamado.status === "Em andamentos") andamento++;
+        else if (chamado.status === "Resolvido") resolvidos++;
+    });
+    
+    document.getElementById('qtdAbertos').textContent = abertos;
+    document.getElementById('qtdEmAndamento').textContent = andamento;
+    document.getElementById('qtdResolvidos').textContent = resolvidos;
+}
 
 
 function removerChamado(index) {
@@ -110,6 +122,7 @@ form.addEventListener('submit', function (e) {
 
 
 exibirChamados();
+atualizarDashboard();
 
 document.getElementById('filtroPrioridade').addEventListener('change', exibirChamados);
 document.getElementById('filtroStatus').addEventListener('change', exibirChamados);
