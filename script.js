@@ -42,9 +42,11 @@ function exibirChamados() {
                 Prioridade: ${chamado.prioridade} <br>
                 Status: <span class="status ${chamado.status.replace(/\s/g, '').toLowerCase()}">${chamado.status}</span><br>
                 <small>${chamado.data}</small><br>
+                ${chamado.resolvidoEm ? `<small><strong>Resolvido em:</strong> ${chamado.resolvidoEm}</small><br>` : ''}
                 <button onclick="editarChamado(${index})">Editar</button>
                 <button onclick="removerChamado(${index})">Excluir</button>
             `;
+
 
             listaChamados.appendChild(li);
         });
@@ -58,7 +60,7 @@ function atualizarDashboard() {
         else if (chamado.status === "Em andamentos") andamento++;
         else if (chamado.status === "Resolvido") resolvidos++;
     });
-    
+
     document.getElementById('qtdAbertos').textContent = abertos;
     document.getElementById('qtdEmAndamento').textContent = andamento;
     document.getElementById('qtdResolvidos').textContent = resolvidos;
@@ -102,8 +104,12 @@ form.addEventListener('submit', function (e) {
     const prioridade = document.getElementById('prioridade').value;
     const status = document.getElementById('status').value;
     const data = new Date().toLocaleString();
-    const chamado = { titulo, descricao, prioridade, status, data };
-    const campoStatus = document.getElementById('status');
+
+    // Verifica se está resolvido e define a data de resolução
+    const resolvidoEm = status === "Resolvido" ? new Date().toLocaleString() : null;
+
+    const chamado = { titulo, descricao, prioridade, status, data, resolvidoEm };
+
 
 
 
