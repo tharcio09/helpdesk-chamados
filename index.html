@@ -20,12 +20,20 @@
                     <option value="Média">Média</option>
                     <option value="Baixa">Baixa</option>
                 </select>
-                <button type="submit">Registrar</button>
+                <button type="submit" id="btnRegistrar">Registrar</button>
+                <button type="button" id="btnCancelar">Cancelar edição</button>
             </form>
         </section>
         
         <section class="list-section">
             <h2>Chamados Registrados</h2>
+            <label for="filtroPrioridade">Filtrar por Prioridade:</label>
+            <select id="filtroPrioridade">
+                <option value="Todas">Todas</option>
+                <option value="Alta">Alta</option>
+                <option value="Média">Média</option>
+                <option value="Baixa">Baixa</option>
+            </select>
             <ul id="listaChamados"></ul>
         </section>
     </main>

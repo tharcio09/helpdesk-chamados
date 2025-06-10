@@ -58,3 +58,7 @@ button:hover {
     margin-bottom: 1rem;
     
 }
+
+#btnCancelar {
+    display: none;
+}
