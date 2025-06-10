@@ -3,8 +3,10 @@ let indiceEdicao = null;
 
 const form = document.getElementById('chamadoForm');
 const listaChamados = document.getElementById('listaChamados');
+const campoStatus = document.getElementById('status');
 const btnRegistrar = document.getElementById('btnRegistrar');
 const btnCancelar = document.getElementById('btnCancelar');
+
 
 
 
@@ -17,29 +19,38 @@ function salvarChamado(chamado) {
 }
 
 function exibirChamados() {
-    const filtro = document.getElementById('filtroPrioridade').value;
+    const filtroPrioridade = document.getElementById('filtroPrioridade').value;
+    const filtroStatus = document.getElementById('filtroStatus').value;
     listaChamados.innerHTML = '';
 
     chamados
-        .filter(chamado => filtro === "Todas" || chamado.prioridade === filtro)
+        .filter(chamado =>
+            (filtroPrioridade === "Todas" || chamado.prioridade === filtroPrioridade) &&
+            (filtroStatus === "Todos" || chamado.status === filtroStatus)
+        )
         .forEach((chamado, index) => {
-            if (modoEdicao && index === indiceEdicao) {
-                li.style.backgroundColor = '#ffe4b3'; // cor clara para destaque
-                li.style.border = '1px solid orange';
-            };
             const li = document.createElement('li');
+
+            if (modoEdicao && index === indiceEdicao) {
+                li.style.backgroundColor = '#ffe4b3';
+                li.style.border = '1px solid orange';
+            }
+
             li.innerHTML = `
-        <strong>${chamado.titulo}</strong> <br>
-        ${chamado.descricao}<br>
-        Prioridade: ${chamado.prioridade}<br>
-        <small>${chamado.data}</small>
-        <br>
-        <button onclick="editarChamado(${index})">Editar</button>
-        <button onclick="removerChamado(${index})">Excluir</button>
-      `;
+                <strong>${chamado.titulo}</strong> <br>
+                ${chamado.descricao}<br>
+                Prioridade: ${chamado.prioridade} <br>
+                Status: <span class="status ${chamado.status.replace(/\s/g, '').toLowerCase()}">${chamado.status}</span><br>
+                <small>${chamado.data}</small><br>
+                <button onclick="editarChamado(${index})">Editar</button>
+                <button onclick="removerChamado(${index})">Excluir</button>
+            `;
+
             listaChamados.appendChild(li);
         });
 }
+
+
 
 
 function removerChamado(index) {
@@ -56,6 +67,7 @@ function editarChamado(index) {
     document.getElementById('titulo').value = chamado.titulo;
     document.getElementById('descricao').value = chamado.descricao;
     document.getElementById('prioridade').value = chamado.prioridade;
+    document.getElementById('status').value = chamado.status;
 
     modoEdicao = true;
     indiceEdicao = index;
@@ -73,14 +85,15 @@ btnCancelar.addEventListener('click', function () {
 
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    btnRegistrar.textContent = 'Registrar';
-    btnCancelar.style.display = 'none';
     const titulo = document.getElementById('titulo').value;
     const descricao = document.getElementById('descricao').value;
     const prioridade = document.getElementById('prioridade').value;
+    const status = document.getElementById('status').value;
     const data = new Date().toLocaleString();
+    const chamado = { titulo, descricao, prioridade, status, data };
+    const campoStatus = document.getElementById('status');
 
-    const chamado = { titulo, descricao, prioridade, data };
+
 
     if (modoEdicao) {
         chamados[indiceEdicao] = chamado;
@@ -99,3 +112,4 @@ form.addEventListener('submit', function (e) {
 exibirChamados();
 
 document.getElementById('filtroPrioridade').addEventListener('change', exibirChamados);
+document.getElementById('filtroStatus').addEventListener('change', exibirChamados);

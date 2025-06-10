@@ -62,3 +62,23 @@ button:hover {
 #btnCancelar {
     display: none;
 }
+
+.status {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+
+.status.aberto {
+  background-color: #f44336;
+}
+
+.status.emandamento {
+  background-color: #ff9800;
+}
+
+.status.resolvido {
+  background-color: #4caf50;
+}

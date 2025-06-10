@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Help Desk</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header>Sistema de Help Desk</header>
+    <header>
+        <h1>Sistema de Help Desk</h1>
+    </header>
 
     <main>
         <section class="form-section">
@@ -15,16 +19,25 @@
             <form id="chamadoForm">
                 <input type="text" id="titulo" placeholder="Título do chamado" required>
                 <textarea id="descricao" placeholder="Descrição do problema" required></textarea>
-                <select id="prioridade">
+                <label for="prioridade">Prioridade:</label>
+                <select id="prioridade" required>
+                    <option disabled selected value="">Selecione a prioridade</option>
                     <option value="Alta">Alta</option>
                     <option value="Média">Média</option>
                     <option value="Baixa">Baixa</option>
+                </select>
+
+                <label for="status">Status do Chamado:</label>
+                <select id="status" required>
+                    <option value="Aberto">Aberto</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Resolvido">Resolvido</option>
                 </select>
                 <button type="submit" id="btnRegistrar">Registrar</button>
                 <button type="button" id="btnCancelar">Cancelar edição</button>
             </form>
         </section>
-        
+
         <section class="list-section">
             <h2>Chamados Registrados</h2>
             <label for="filtroPrioridade">Filtrar por Prioridade:</label>
@@ -34,10 +47,19 @@
                 <option value="Média">Média</option>
                 <option value="Baixa">Baixa</option>
             </select>
+            <label for="filtroStatus">Filtrar por Status:</label>
+            <select id="filtroStatus">
+                <option value="Todos">Todos</option>
+                <option value="Aberto">Aberto</option>
+                <option value="Em andamento">Em andamento</option>
+                <option value="Resolvido">Resolvido</option>
+            </select>
+
             <ul id="listaChamados"></ul>
         </section>
     </main>
 
     <script src="script.js"></script>
 </body>
+
 </html>
