@@ -21,50 +21,59 @@ function salvarChamado(chamado) {
 function exibirChamados() {
     const filtroPrioridade = document.getElementById('filtroPrioridade').value;
     const filtroStatus = document.getElementById('filtroStatus').value;
+    const termoBusca = document.getElementById('campoBusca').value.toLowerCase();
+    const ordenarPor = document.getElementById('ordenarPor').value;
+
     listaChamados.innerHTML = '';
 
-    chamados
+    const chamadosFiltrados = chamados
         .filter(chamado =>
-            (filtroPrioridade === "Todas" || chamado.prioridade === filtroPrioridade) &&
-            (filtroStatus === "Todos" || chamado.status === filtroStatus)
+            (filtroPrioridade === 'Todas' || chamado.prioridade === filtroPrioridade) &&
+            (filtroStatus === 'Todos' || chamado.status === filtroStatus) &&
+            (
+                chamado.titulo.toLowerCase().includes(termoBusca) ||
+                chamado.descricao.toLowerCase().includes(termoBusca)
+            )
         )
-        .forEach((chamado, index) => {
-            const li = document.createElement('li');
-
-            if (modoEdicao && index === indiceEdicao) {
-                li.style.backgroundColor = '#ffe4b3';
-                li.style.border = '1px solid orange';
-            }
-
-            li.innerHTML = `
-                <strong>${chamado.titulo}</strong> <br>
-                ${chamado.descricao}<br>
-                Prioridade: ${chamado.prioridade} <br>
-                Status: <span class="status ${chamado.status.replace(/\s/g, '').toLowerCase()}">${chamado.status}</span><br>
-                <small>${chamado.data}</small><br>
-                ${chamado.resolvidoEm ? `<small><strong>Resolvido em:</strong> ${chamado.resolvidoEm}</small><br>` : ''}
-                <button onclick="editarChamado(${index})">Editar</button>
-                <button onclick="removerChamado(${index})">Excluir</button>
-            `;
-
-
-            listaChamados.appendChild(li);
+        .sort((a, b) => {
+            const dataA = new Date(a.data);
+            const dataB = new Date(b.data);
+            return ordenarPor === 'maisRecentes' ? dataB - dataA : dataA - dataB;
         });
+
+    chamadosFiltrados.forEach((chamado, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+      <strong>${chamado.titulo}</strong><br>
+      ${chamado.descricao}<br>
+      Prioridade: ${chamado.prioridade}<br>
+      Status: <span class="status ${chamado.status.replace(/\s/g, '').toLowerCase()}">${chamado.status}</span><br>
+      <small>${chamado.data}</small><br>
+      ${chamado.resolvidoEm ? `<small><strong>Resolvido em:</strong> ${chamado.resolvidoEm}</small><br>` : ''}
+      <button onclick="editarChamado(${index})">Editar</button>
+      <button onclick="removerChamado(${index})">Excluir</button>
+    `;
+        listaChamados.appendChild(li);
+    });
+
+    atualizarDashboard();
 }
+
 
 function atualizarDashboard() {
     let abertos = 0, andamento = 0, resolvidos = 0;
 
     chamados.forEach(chamado => {
-        if (chamado.status === "Aberto") abertos++;
-        else if (chamado.status === "Em andamentos") andamento++;
-        else if (chamado.status === "Resolvido") resolvidos++;
+        if (chamado.status === 'Aberto') abertos++;
+        else if (chamado.status === 'Em andamento') andamento++;
+        else if (chamado.status === 'Resolvido') resolvidos++;
     });
 
     document.getElementById('qtdAbertos').textContent = abertos;
     document.getElementById('qtdEmAndamento').textContent = andamento;
     document.getElementById('qtdResolvidos').textContent = resolvidos;
 }
+
 
 
 function removerChamado(index) {
@@ -105,7 +114,7 @@ form.addEventListener('submit', function (e) {
     const status = document.getElementById('status').value;
     const data = new Date().toLocaleString();
 
-    
+    // Verifica se está resolvido e define a data de resolução
     const resolvidoEm = status === "Resolvido" ? new Date().toLocaleString() : null;
 
     const chamado = { titulo, descricao, prioridade, status, data, resolvidoEm };
@@ -128,7 +137,8 @@ form.addEventListener('submit', function (e) {
 
 
 exibirChamados();
-atualizarDashboard();
 
 document.getElementById('filtroPrioridade').addEventListener('change', exibirChamados);
 document.getElementById('filtroStatus').addEventListener('change', exibirChamados);
+document.getElementById('campoBusca').addEventListener('input',  exibirChamados);
+document.getElementById('ordenarPor').addEventListener('change', exibirChamados);

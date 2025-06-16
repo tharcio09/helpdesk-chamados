@@ -52,6 +52,12 @@
                 <option value="Média">Média</option>
                 <option value="Baixa">Baixa</option>
             </select>
+            <label for="ordenarPor">Ordenar por:</label>
+            <select id="ordenarPor">
+                <option value="maisRecentes">Mais recentes</option>
+                <option value="maisAntigos">Mais antigos</option>
+            </select>
+
             <label for="filtroStatus">Filtrar por Status:</label>
             <select id="filtroStatus">
                 <option value="Todos">Todos</option>
@@ -59,7 +65,7 @@
                 <option value="Em andamento">Em andamento</option>
                 <option value="Resolvido">Resolvido</option>
             </select>
-
+            <input type="text" id="campoBusca" placeholder="Buscar por título ou descrição...">
             <ul id="listaChamados"></ul>
         </section>
     </main>
