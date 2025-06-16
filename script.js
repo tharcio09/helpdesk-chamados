@@ -105,7 +105,7 @@ form.addEventListener('submit', function (e) {
     const status = document.getElementById('status').value;
     const data = new Date().toLocaleString();
 
-    // Verifica se está resolvido e define a data de resolução
+    
     const resolvidoEm = status === "Resolvido" ? new Date().toLocaleString() : null;
 
     const chamado = { titulo, descricao, prioridade, status, data, resolvidoEm };
