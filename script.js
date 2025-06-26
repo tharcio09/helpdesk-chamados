@@ -142,3 +142,21 @@ document.getElementById('filtroPrioridade').addEventListener('change', exibirCha
 document.getElementById('filtroStatus').addEventListener('change', exibirChamados);
 document.getElementById('campoBusca').addEventListener('input',  exibirChamados);
 document.getElementById('ordenarPor').addEventListener('change', exibirChamados);
+
+const botaoTema = document.getElementById('toggleTema');
+
+// Aplica o tema salvo (se existir)
+
+const temaSalvo = localStorage.getItem('tema');
+if(temaSalvo === 'dark') {
+    document.body.classList.add('dark');
+    botaoTema.textContent = 'Modo Claro';
+}
+
+botaoTema.addEventListener('click', () =>  {
+    document.body.classList.toggle('dark');
+    const modoAtual = document.body.classList.contains('dark') ? 'dark' : 'light';
+    localStorage.setItem('tema', modoAtual);
+
+    botaoTema.textContent = modoAtual === 'dark' ? 'Modo Claro' : 'Modo Escuro';
+});

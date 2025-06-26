@@ -99,3 +99,69 @@ button:hover {
 .dashboard p {
   margin: 5px 0;
 }
+
+/* Tema Claro (Padrão) */
+
+body {
+  background-color: #f9f9f9;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tema-btn {
+  margin-left: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Tema Escuro */
+
+body.dark {
+  background-color: #2e2c2c;
+  color: #ffffff;
+
+  #btnRegistrar {
+  background-color: #2e2c2c;
+}
+main {
+  background-color: #2e2c2c;
+}
+
+header {
+  background-color: #2e2c2c;
+}
+
+
+  
+}
+
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+  background-color: #2e2c2c;
+  color: #ffffff;
+  border: 1px solid #444; 
+}
+
+
+body.dark .form-section,
+body.dark .list-section {
+  background-color: #2e2c2c;
+  color: #ffffff;
+}
+button {
+  background-color: #2980b9;
+}
+
+body.dark .status {
+  color: #fff;
+}
+
+body.dark .tema-btn {
+  background-color: #2980b9;
+  color: #fff;
+  border: 1px solid #555;
+  
+}
